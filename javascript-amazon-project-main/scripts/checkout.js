@@ -1,4 +1,4 @@
-import { cart, deleteFromCart } from "../data/cart.js";
+import { cart, deleteFromCart, updateDeliveryOption } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
@@ -67,7 +67,10 @@ function deliveryOptionsHtml(cartItem,matchingProduct) {
       item.priceCents === 0 ? "FREE" : `$${(item.priceCents / 100).toFixed(2)}-`;
       const ischecked= item.id===cartItem.deliveryOptionsID;
     totalHtml += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option" 
+      data-product-id="${matchingProduct.id}"
+      data-delivery-optionsid="${item.id}"
+      >
         <input type="radio" 
         ${(ischecked)?'checked':''}
           class="delivery-option-input"
@@ -97,3 +100,13 @@ document.querySelectorAll(".js-delete-quantity").forEach((link) => {
     container.remove();
   });
 });
+
+document.querySelectorAll('.js-delivery-option').forEach(
+  (item)=>{
+    const productId=item.dataset.productId
+    const deliveryOptionsID=item.dataset.deliveryOptionsid;
+    item.addEventListener('click',()=>{
+      updateDeliveryOption(productId,deliveryOptionsID);
+    });
+  }
+);

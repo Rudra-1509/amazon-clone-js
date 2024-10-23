@@ -47,3 +47,11 @@ export function deleteFromCart(productId) {
   cart = newCart;
   saveToCart();
 }
+
+export function updateDeliveryOption(productId, deliveryOptionsID)
+{
+  const targetItem= cart.find((item)=>item.productId === productId);
+  targetItem.deliveryOptionsID=deliveryOptionsID;
+
+  saveToCart();
+}
