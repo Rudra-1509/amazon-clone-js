@@ -7,7 +7,8 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 // const today = dayjs();
 // const deliveryDate = today.add(7, "days");
 // console.log(deliveryDate.format("ddd, MMM D"));
-
+function renderOrderSummary()
+{
 let cartSummaryHtml = "";
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
@@ -107,6 +108,11 @@ document.querySelectorAll('.js-delivery-option').forEach(
     const deliveryOptionsID=item.dataset.deliveryOptionsid;
     item.addEventListener('click',()=>{
       updateDeliveryOption(productId,deliveryOptionsID);
+      renderOrderSummary();
     });
   }
 );
+
+}
+
+renderOrderSummary();
