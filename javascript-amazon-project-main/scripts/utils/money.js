@@ -1,4 +1,4 @@
 export function formatCurrency(inputCents)
 {
-    return ((inputCents/100).toFixed(2));
+    return ((Math.round(inputCents)/100).toFixed(2));
 }
