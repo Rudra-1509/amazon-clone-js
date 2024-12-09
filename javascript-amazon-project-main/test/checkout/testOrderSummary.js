@@ -1,6 +1,12 @@
 import { renderOrderSummary } from "../../scripts/checkout/ordersummary.js";
 import { loadCart,cart } from "../../data/cart.js";
+import { loadproducts } from "../../data/products.js";
 
+beforeAll((done)=>{
+    loadproducts(()=>{
+        done();
+    });
+});
 
 describe('Test Suite: renderOrderSummary',()=>{
     beforeEach(()=>{
