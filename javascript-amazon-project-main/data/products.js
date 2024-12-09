@@ -526,3 +526,6 @@ export const products = [
   return new Product(elem);
 });
 
+const date= new Date();
+console.log(date);
+console.log(date.toLocaleDateString());
