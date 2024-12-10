@@ -3,7 +3,7 @@ import { renderPaymentSummary } from "./checkout/paymentsummary.js";
 // import "../data/cart-oop.js";
 // import "../data/cart-class.js";
 //import "../data/backend-practice.js";
-import { loadproducts } from "../data/products.js";
+import { loadproducts, loadproductsfetch } from "../data/products.js";
 import { loadcart } from "../data/cart.js";
 /*
 new Promise((resolve) => {
@@ -42,7 +42,7 @@ new Promise((resolve) => {
 */
 Promise.all([
   new Promise((resolve) => {
-    loadproducts(() => {
+    loadproductsfetch(() => {
       resolve(20);
     });
   }),

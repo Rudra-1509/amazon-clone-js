@@ -16,33 +16,28 @@ class Product {
     this.keywords = productDetails.keywords;
   }
 
-  getStarsUrl()
-  {
+  getStarsUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
-  getPrice()
-  {
+  getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
 
-  extraHtml()
-  {
+  extraHtml() {
     return ``;
   }
 }
 
-class Clothing extends Product{
+class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productDetails)
-  {
+  constructor(productDetails) {
     super(productDetails);
-    this.sizeChartLink=productDetails.sizeChartLink;
+    this.sizeChartLink = productDetails.sizeChartLink;
   }
 
-  extraHtml()
-  {
+  extraHtml() {
     return `<a href="${this.sizeChartLink}" target="_blank">Size Chart</a>`;
   }
 }
@@ -531,24 +526,43 @@ console.log(date);
 console.log(date.toLocaleDateString());
 */
 
-export let products=[];
-export function loadproducts(fun)
- {
-  const xhr= new XMLHttpRequest();
+export let products = [];
+export function loadproducts(fun) {
+  const xhr = new XMLHttpRequest();
 
-  xhr.addEventListener('load',()=>{
-    products=JSON.parse(xhr.response).map((elem) => {
-      if(elem.type === 'clothing')
-      {
-          return new Clothing(elem);
+  xhr.addEventListener("load", () => {
+    products = JSON.parse(xhr.response).map((elem) => {
+      if (elem.type === "clothing") {
+        return new Clothing(elem);
       }
       return new Product(elem);
     });
 
-    console.log('load products');
+    console.log("load products");
     fun();
   });
-  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
- }
+}
 
+export function loadproductsfetch() {
+  const promise = fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((productsData) => {
+      products = productsData.map((elem) => {
+        if (elem.type === "clothing") {
+          return new Clothing(elem);
+        }
+        return new Product(elem);
+      });
+      console.log("load products");
+    });
+
+  return promise;
+}
+
+// loadproductsfetch().then(() => {
+//   console.log("next step");
+// });
