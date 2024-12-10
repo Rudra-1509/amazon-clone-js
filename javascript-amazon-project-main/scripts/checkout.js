@@ -40,6 +40,7 @@ new Promise((resolve) => {
     renderPaymentSummary();
   });
 */
+/*
 Promise.all([
   new Promise((resolve) => {
     loadproductsfetch(() => {
@@ -56,3 +57,18 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
+
+async function loadpage() {
+  await loadproductsfetch();
+
+  await new Promise((resolve) => {
+    loadcart(() => {
+      resolve();
+    });
+  });
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+
+loadpage();
