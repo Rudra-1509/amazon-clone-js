@@ -60,13 +60,23 @@ Promise.all([
 */
 
 async function loadpage() {
-  await loadproductsfetch();
+  try{
+    //throw 'error1';
+    await loadproductsfetch();
 
-  await new Promise((resolve) => {
+  await new Promise((resolve,reject) => {
+    //throw 'error2';
     loadcart(() => {
       resolve();
+      //reject('error3');
     });
   });
+  }
+  catch(error){
+    console.log(error);
+    console.log("error occured.Please try again later.");
+  }
+  
   renderOrderSummary();
   renderPaymentSummary();
 }

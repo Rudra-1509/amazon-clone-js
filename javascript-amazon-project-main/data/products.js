@@ -537,13 +537,16 @@ export function loadproducts(fun) {
       }
       return new Product(elem);
     });
-
     console.log("load products");
     fun();
+  });
+  xhr.addEventListener("error", (error) => {
+    console.log("error occured.Please try again later.");
   });
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }
+
 
 export function loadproductsfetch() {
   const promise = fetch("https://supersimplebackend.dev/products")
@@ -558,8 +561,10 @@ export function loadproductsfetch() {
         return new Product(elem);
       });
       console.log("load products");
+    }).catch((error)=>{
+      console.log("error occured.Please try again later.");
     });
-
+ 
   return promise;
 }
 
